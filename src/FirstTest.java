@@ -37,10 +37,14 @@ public class FirstTest {
     //WebElement elemToEnterSearchLine = driver.findElementByXPath("//*[contains(@text, 'Search…')]");
     WebElement elemToEnterSearchLine = waitForElementPresentByXpath(
             "//*[contains(@text, 'Search…')]",
-            "Cannot find search input",
-            5
+            "Cannot find search input" //,5
     );
-    elemToEnterSearchLine.sendKeys("Appium");
+    elemToEnterSearchLine.sendKeys("Java");
+    waitForElementPresentByXpath(
+            "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']",
+            "Cannot find 'Object-oriented programming language'",
+            10
+    );
     System.out.println("First test with wait! Well done!");
   }
 
@@ -49,5 +53,8 @@ public class FirstTest {
     wait.withMessage(errorMessage + "\n");
     By by = By.xpath(xPath);
     return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+  }
+  private WebElement waitForElementPresentByXpath(String xPath, String errorMessage){
+    return waitForElementPresentByXpath(xPath, errorMessage, 5);
   }
 }
